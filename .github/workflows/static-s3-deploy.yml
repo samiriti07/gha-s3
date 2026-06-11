@@ -20,4 +20,8 @@ jobs:
           aws-access-key-id: ${{secrets.AWS_ACCESS_KEY_ID}}
           aws-secret-access-key-id: ${{secrets.AWS_SECRET_ACCESS_KEY_ID}}
           aws-region: us-east-1
-          
+      - name: copy static code to s3
+        run: |
+          aws s3 sync ./s3://samriti-gha-static-website/ \
+          -- exclude "*"
+          -- include "index.html"
