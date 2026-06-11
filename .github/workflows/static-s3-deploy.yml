@@ -1,27 +1,25 @@
-# This is a basic workflow to help you get started with Actions
-
 name: Deploy html to s3
 
-# Controls when the workflow will r
-on: push
+on:
+  push:
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - name:  checkout the code from repo
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      # Runs a single command using the runners shell
-      - name: configure aws credentials
+      - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          aws-access-key-id: ${{secrets.AWS_ACCESS_KEY_ID}}
-          aws-secret-access-key-id: ${{secrets.AWS_SECRET_ACCESS_KEY_ID}}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
-      - name: copy static code to s3
+
+      - name: Copy static code to S3
         run: |
-          aws s3 sync ./s3://samriti-gha-static-website/ \
-          -- exclude "*"
-          -- include "index.html"
+          aws s3 sync ./ s3://samriti-gha-static-website/ \
+          --exclude "*" \
+          --include "index.html"
