@@ -10,7 +10,7 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - name:  checkout code from repo
+      - name:  checkout the code from repo
         uses: actions/checkout@v4
 
       # Runs a single command using the runners shell
